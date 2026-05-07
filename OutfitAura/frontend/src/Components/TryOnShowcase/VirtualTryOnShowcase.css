@@ -1,0 +1,204 @@
+.virtual-tryon-showcase {
+  padding: 60px 20px 80px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.virtual-tryon-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.virtual-tryon-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--brand-brown);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.virtual-tryon-description {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.virtual-tryon-examples {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.virtual-tryon-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 25px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tryon-example-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.tryon-example-image-wrapper {
+  width: 350px;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 0 0;
+}
+
+.tryon-example-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.tryon-example-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+  padding: 16px 10px;
+}
+
+@media (max-width: 1200px) {
+  .tryon-example-image-wrapper {
+    width: 300px;
+  }
+}
+
+@media (max-width: 968px) {
+  .virtual-tryon-showcase {
+    padding: 55px 20px 75px;
+  }
+  
+  .virtual-tryon-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .tryon-example-image-wrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .virtual-tryon-showcase {
+    padding: 50px 20px 70px;
+  }
+  
+  .virtual-tryon-header {
+    margin-bottom: 50px;
+  }
+  
+  .virtual-tryon-title {
+    font-size: clamp(28px, 5.5vw, 40px);
+    margin-bottom: 20px;
+  }
+
+  .virtual-tryon-description {
+    font-size: clamp(15px, 3.5vw, 18px);
+    padding: 0 15px;
+    line-height: 1.6;
+  }
+
+  .tryon-example-image-wrapper {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .virtual-tryon-examples {
+    margin-top: 40px;
+    gap: 25px;
+  }
+  
+  .virtual-tryon-row {
+    gap: 20px;
+  }
+  
+  .tryon-example-label {
+    font-size: clamp(15px, 3.5vw, 17px);
+  }
+}
+
+@media (max-width: 480px) {
+  .virtual-tryon-showcase {
+    padding: 40px 15px 60px;
+  }
+  
+  .virtual-tryon-header {
+    margin-bottom: 40px;
+  }
+  
+  .virtual-tryon-title {
+    font-size: clamp(24px, 6vw, 32px);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .virtual-tryon-description {
+    font-size: clamp(14px, 3.5vw, 16px);
+    padding: 0 10px;
+    line-height: 1.5;
+  }
+
+  .virtual-tryon-examples {
+    margin-top: 30px;
+  }
+  
+  .virtual-tryon-row {
+    gap: 20px;
+  }
+
+  .tryon-example-image-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px 0 0;
+  }
+  
+  .tryon-example-label {
+    font-size: clamp(14px, 3.5vw, 16px);
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .virtual-tryon-showcase {
+    padding: 30px 12px 50px;
+  }
+  
+  .virtual-tryon-title {
+    font-size: 22px;
+  }
+  
+  .virtual-tryon-description {
+    font-size: 13px;
+  }
+}
+

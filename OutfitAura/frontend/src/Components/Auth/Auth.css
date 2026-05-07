@@ -1,0 +1,891 @@
+/* New two-column login layout */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Match global but with stronger focus around center */
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(138,95,95,0.18), transparent 64%),
+    radial-gradient(820px 480px at 80% 15%, rgba(138,95,95,0.14), transparent 58%),
+    radial-gradient(1000px 600px at 50% 100%, rgba(138,95,95,0.10), transparent 62%),
+    var(--bg);
+  background-attachment: fixed;
+  padding: 20px;
+}
+
+.login-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+  background: var(--surface);
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 1px 0 var(--border), 0 12px 24px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 740px;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+}
+
+/* Soft highlight ring to lift the card from the gradient */
+.login-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  pointer-events: none;
+  background:
+    radial-gradient(520px 220px at 20% 0%, rgba(138,95,95,0.14), transparent 72%),
+    radial-gradient(460px 180px at 80% 10%, rgba(138,95,95,0.12), transparent 72%);
+  z-index: 0;
+}
+
+.login-card > * { position: relative; z-index: 1; }
+
+/* Slightly smaller for signup specifically */
+.signup-wrapper .login-card {
+}
+
+.login-right h2 {
+  color: var(--brand-brown);
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-mail{
+  width: 100% !important;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  background: var(--surface);
+  box-sizing: border-box;
+}
+
+.login-form input:focus {
+  border-color: var(--brand-brown);
+  box-shadow: 0 0 0 3px rgba(91, 62, 62, 0.12);
+  outline: none;
+}
+
+.login-form input::placeholder {
+  color: var(--muted);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--brand-brown);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: .3px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(109, 76, 65, 0.25);
+}
+
+.google-outline {
+  width: 100%;
+  padding: 12px;
+  background: var(--surface);
+  color: var(--brand-brown);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.google-outline:hover {
+  background: rgba(0,0,0,0.04);
+  border-color: var(--brand-brown);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0, 0.12);
+}
+
+.login-left h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--brand-brown);
+}
+
+.login-points {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+  color: var(--muted);
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-points li::before {
+  content: '✓';
+  color: var(--brand-brown);
+  margin-right: 10px;
+}
+
+.login-image {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 1px 0 var(--border), 0 8px 24px rgba(0,0,0,0.06);
+  display: inline-block;
+}
+
+.login-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--brand-brown);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.password-field input {
+  padding-right: 70px;
+}
+
+/* Keep existing styles used elsewhere (Google/Gmail buttons, divider, etc.) */
+
+.captcha-box {
+  margin: 10px 0 16px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: 'Roboto', sans-serif;
+}
+
+.recaptcha-wrap {
+  margin: 6px 0 16px;
+}
+
+@media (max-width: 900px) {
+  .login-card {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .login-left {
+    text-align: center;
+    order: 2;
+  }
+  
+  .login-right {
+    order: 1;
+  }
+  
+  .login-left h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .login-points {
+    margin: 15px 0;
+  }
+  
+  .login-points li {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .login-image {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    padding: 15px;
+    min-height: 100vh;
+  }
+  
+  .login-card {
+    padding: 18px;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+  
+  .login-right h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .login-form input {
+    padding: 14px;
+    margin-bottom: 12px;
+    font-size: 16px; /* Better for mobile input */
+  }
+  
+  .login-btn, .google-outline {
+    padding: 14px;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .toggle-password {
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  .auth-switch {
+    text-align: center;
+    margin-top: 25px;
+  }
+  
+  .recaptcha-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 16px;
+  }
+  
+  .recaptcha-wrap > div {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+  
+  .password-field {
+    margin-bottom: 5px;
+  }
+  
+  .toggle-password {
+    min-height: 44px; /* Better touch target */
+    min-width: 44px;
+  }
+  
+  .login-form input:focus {
+    box-shadow: 0 0 0 2px rgba(109, 76, 65, 0.2);
+  }
+  
+  /* Ensure proper spacing for mobile forms */
+  .login-form {
+    margin-bottom: 20px;
+  }
+  
+  .google-outline {
+    margin-bottom: 15px;
+  }
+  
+  .auth-switch {
+    margin-top: 20px;
+    line-height: 1.4;
+  }
+  
+  /* Improve button touch targets on mobile */
+  .login-btn, .google-outline {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  .login-btn:active, .google-outline:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-wrapper {
+    padding: 10px;
+  }
+  
+  .login-card {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .login-left h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  
+  .login-right h2 {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  
+  .login-form input {
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .login-btn, .google-outline {
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .login-points li {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  
+  .login-image {
+    max-width: 250px;
+    padding: 8px;
+  }
+  
+  .toggle-password {
+    font-size: 12px;
+    padding: 6px;
+    min-height: 40px;
+    min-width: 40px;
+  }
+  
+  .auth-switch {
+    font-size: 12px;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    font-size: 12px;
+    padding: 6px;
+  }
+  
+  .recaptcha-wrap > div {
+    transform: scale(0.8);
+  }
+  
+  .login-form input {
+    border-width: 1.5px;
+  }
+  
+  .login-form input:focus {
+    border-width: 2px;
+    box-shadow: 0 0 0 2px rgba(109, 76, 65, 0.15);
+  }
+  
+  /* Better mobile form layout */
+  .login-form {
+    margin-bottom: 15px;
+  }
+  
+  .login-form input {
+    margin-bottom: 8px;
+  }
+  
+  .password-field {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-wrapper {
+    padding: 8px;
+  }
+  
+  .login-card {
+    padding: 12px;
+  }
+  
+  .login-left h1 {
+    font-size: 18px;
+  }
+  
+  .login-right h2 {
+    font-size: 18px;
+  }
+  
+  .login-form input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .login-btn, .google-outline {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .login-points li {
+    font-size: 12px;
+  }
+  
+  .login-image {
+    max-width: 200px;
+  }
+  
+  .recaptcha-wrap > div {
+    transform: scale(0.75);
+  }
+  
+  .toggle-password {
+    min-height: 36px;
+    min-width: 36px;
+    font-size: 10px;
+  }
+}
+
+/* Landscape orientation for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .login-wrapper {
+    padding: 10px;
+    min-height: 100vh;
+  }
+  
+  .login-card {
+    padding: 15px;
+    gap: 10px;
+  }
+  
+  .login-left h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .login-points {
+    margin: 8px 0;
+  }
+  
+  .login-points li {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  
+  .login-image {
+    max-width: 150px;
+  }
+  
+  .login-right h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .login-form input {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .login-btn, .google-outline {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+/* Google and Gmail button styles */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 2px solid var(--border) !important;
+  padding: 10px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  margin-bottom: 12px !important;
+  width: 100% !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.google-btn:hover {
+  background: rgba(0,0,0,0.04) !important;
+  border-color: var(--brand-brown) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(0,0,0, 0.12) !important;
+}
+
+.google-icon {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.gmail-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #DB4437 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  margin-bottom: 12px !important;
+  width: 100% !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(219, 68, 55, 0.2) !important;
+}
+
+.gmail-btn:hover {
+  background: #c53929 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(219, 68, 55, 0.3) !important;
+}
+
+.gmail-icon {
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* Divider styles */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: var(--muted);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+  font-size: 13px;
+  padding: 0 8px;
+}
+
+/* Error message styles */
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-size: 13px;
+  padding: 8px;
+  background: rgba(231, 76, 60, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Auth switch styles */
+.auth-switch {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-switch a {
+  color: var(--brand-brown);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.auth-switch a:hover {
+  color: var(--brand-brown);
+}
+
+.auth-switch a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: var(--brand-brown);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.auth-switch a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+} 
+
+/* Additional mobile optimizations */
+@media (max-width: 768px) {
+  /* Prevent horizontal scrolling */
+  .login-wrapper {
+    overflow-x: hidden;
+  }
+  
+  /* Better mobile input experience */
+  .login-form input {
+    -webkit-appearance: none;
+    border-radius: 10px;
+  }
+  
+  /* Improve mobile button feedback */
+  .login-btn:active, .google-outline:active {
+    background-color: #5b3f33;
+  }
+  
+  /* Better mobile spacing */
+  .login-left {
+    margin-bottom: 20px;
+  }
+  
+  .login-right {
+    padding: 0 5px;
+  }
+}
+
+/* Ensure ReCAPTCHA is properly handled on all mobile devices */
+@media (max-width: 768px) {
+  .recaptcha-wrap {
+    overflow: hidden;
+  }
+  
+  .recaptcha-wrap > div {
+    margin: 0 auto;
+  }
+}
+
+/* Landscape mode optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .login-wrapper {
+    padding: 5px;
+  }
+  
+  .login-card {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .login-left {
+    margin-bottom: 10px;
+  }
+  
+  .login-image {
+    max-width: 120px;
+  }
+  
+  .recaptcha-wrap > div {
+    transform: scale(0.7);
+  }
+} 
+
+/* Prevent zoom on iOS mobile devices */
+@media (max-width: 768px) {
+  .login-form input[type="email"],
+  .login-form input[type="password"],
+  .login-form input[type="text"] {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Ensure proper mobile input sizing */
+  .login-form input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Better mobile button sizing */
+  .login-btn, .google-outline {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Additional mobile input improvements */
+@media (max-width: 480px) {
+  .login-form input {
+    padding: 12px 10px;
+    margin-bottom: 8px;
+  }
+  
+  .password-field input {
+    padding-right: 60px; /* Adjust for smaller toggle button */
+  }
+  
+  .toggle-password {
+    right: 8px;
+    padding: 4px 6px;
+  }
+}
+
+/* Ensure proper mobile layout on very small screens */
+@media (max-width: 320px) {
+  .login-wrapper {
+    padding: 5px;
+  }
+  
+  .login-card {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .login-left h1 {
+    font-size: 16px;
+  }
+  
+  .login-right h2 {
+    font-size: 16px;
+  }
+  
+  .login-form input {
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .login-btn, .google-outline {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .login-points li {
+    font-size: 11px;
+  }
+  
+  .login-image {
+    max-width: 180px;
+  }
+  
+  .recaptcha-wrap > div {
+    transform: scale(0.7);
+  }
+} 
+
+/* Final mobile optimizations and accessibility improvements */
+@media (max-width: 768px) {
+  /* Improve touch feedback */
+  .login-btn, .google-outline {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  
+  /* Better mobile focus states */
+  .login-form input:focus {
+    outline: none;
+    border-color: #6d4c41;
+    box-shadow: 0 0 0 2px rgba(109, 76, 65, 0.2);
+  }
+  
+  /* Ensure proper mobile spacing */
+  .login-form {
+    margin-bottom: 25px;
+  }
+  
+  /* Better mobile button spacing */
+  .google-outline {
+    margin-bottom: 20px;
+  }
+  
+  /* Improve mobile text readability */
+  .login-left h1,
+  .login-right h2 {
+    line-height: 1.2;
+  }
+  
+  .login-points li {
+    line-height: 1.4;
+  }
+  
+  /* Better mobile form organization */
+  .login-form input {
+    margin-bottom: 12px;
+  }
+  
+  .password-field {
+    margin-bottom: 12px;
+  }
+}
+
+/* Ensure smooth mobile experience */
+@media (max-width: 768px) {
+  .login-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .login-card {
+    transition: all 0.3s ease;
+  }
+  
+  /* Better mobile button states */
+  .login-btn:hover, .google-outline:hover {
+    transform: none; /* Disable hover effects on mobile */
+  }
+  
+  .login-btn:active, .google-outline:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Mobile-specific accessibility improvements */
+@media (max-width: 768px) {
+  /* Ensure proper contrast and readability */
+  .login-form input::placeholder {
+    color: #8d7a70;
+    opacity: 0.8;
+  }
+  
+  /* Better mobile error message display */
+  .error-message {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Improve mobile link accessibility */
+  .auth-switch a {
+    padding: 4px 0;
+    display: inline-block;
+  }
+}
+
+/* Ensure proper mobile layout on all screen sizes */
+@media (max-width: 768px) {
+  .login-card {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .login-left,
+  .login-right {
+    width: 100%;
+  }
+  
+  /* Center align all content on mobile */
+  .login-left {
+    text-align: center;
+  }
+  
+  .login-right {
+    text-align: center;
+  }
+  
+  /* Ensure proper mobile image sizing */
+  .login-image {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .login-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+} 

@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* glassy surface that matches the page background */
+  background:
+    linear-gradient(180deg, rgba(138,95,95,0.10), rgba(138,95,95,0.04) 40%, rgba(138,95,95,0) 100%),
+    var(--surface);
+  padding: 10px 20px;
+  color: var(--text);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(120%) blur(8px);
+}
+
+/* Flexbox Adjustment */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+/* Logo */
+.logo {
+  font-size: 2.6rem !important;
+  font-weight: 900;
+  letter-spacing: 2.2px;
+  color: var(--brand-brown);
+  transition: text-shadow 0.3s ease;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.12), 0 0 0.5px rgba(0,0,0,0.12);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logo:hover {
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
+.nav-links li {
+  font-family: "Roboto", sans-serif !important;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 0;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li:hover {
+  color: var(--text);
+}
+
+.nav-links li:not(.theme-toggle-wrapper):not(.logout-btn-wrapper)::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: var(--border);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-links li:not(.theme-toggle-wrapper):not(.logout-btn-wrapper):hover::after {
+  transform: scaleX(1);
+}
+
+.nav-links .theme-toggle-wrapper,
+.nav-links .logout-btn-wrapper {
+  padding: 0;
+}
+
+.nav-links .theme-toggle-wrapper .theme-toggle,
+.nav-links .logout-btn-wrapper .logout-btn {
+  margin: 0;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1002;
+  padding: 8px;
+  transition: transform 0.3s ease;
+  width: 40px;
+  height: 40px;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  margin: 3px 0;
+  border-radius: 2px;
+  transition: all 0.3s;
+  display: block;
+}
+
+/* Logout Button */
+.theme-toggle {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid transparent;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-left: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.logout-btn {
+  background: transparent;
+  color: var(--brand-brown);
+  border: 2px solid var(--brand-brown);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 800;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-left: 0;
+  min-width: 100px;
+  text-align: center;
+}
+
+.logout-btn:hover {
+  background: rgba(91, 62, 62, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-color: var(--brand-brown);
+}
+
+/* Responsive Design */
+
+/* Medium Screens (769px - 900px) */
+@media (max-width: 900px) and (min-width: 769px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+  
+  .nav-links {
+    gap: 18px;
+  }
+  
+  .logo {
+    font-size: 2.2rem;
+    letter-spacing: 1.2px;
+  }
+}
+
+/* Small Screens (up to 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 15px;
+    height: 60px;
+    justify-content: space-between;
+  }
+  
+  .nav-container {
+    width: 100%;
+  }
+  
+  .logo {
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+    letter-spacing: 1px;
+    z-index: 1001;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    background: var(--surface);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    display: none;
+    z-index: 999;
+    border-bottom: 1px solid var(--border);
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  
+  .nav-links.open {
+    display: flex;
+  }
+  
+  /* Hamburger animation when menu is open */
+  .hamburger.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  .nav-links li {
+    font-size: 1rem;
+    padding: 12px 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-links li:last-of-type {
+    border-bottom: none;
+  }
+  
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1002;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nav-links .logout-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .nav-links .logout-btn-wrapper .logout-btn {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .nav-links .theme-toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .nav-links .theme-toggle-wrapper .theme-toggle {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Large Screens (901px - 1024px) */
+@media (max-width: 1024px) and (min-width: 901px) {
+  .nav-links {
+    gap: 22px;
+  }
+  
+  .logo {
+    font-size: 2.4rem;
+  }
+}
+
+/* Small Screens (up to 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 10px;
+    height: 56px;
+  }
+
+  .logo {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-links {
+    top: 56px;
+    padding: 15px;
+  }
+  
+  .nav-links li {
+    font-size: 0.95rem;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-links .logout-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-links .logout-btn-wrapper .logout-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 180px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .nav-links .theme-toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .nav-links .theme-toggle-wrapper .theme-toggle {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 180px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 10px 8px;
+    height: 54px;
+  }
+  
+  .logo {
+    font-size: 1rem;
+  }
+  
+  .nav-links {
+    top: 54px;
+    padding: 12px;
+  }
+  
+  .nav-links li {
+    font-size: 0.9rem;
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-links .logout-btn-wrapper,
+  .nav-links .theme-toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-links .logout-btn-wrapper .logout-btn,
+  .nav-links .theme-toggle-wrapper .theme-toggle {
+    max-width: 160px;
+    font-size: 0.8rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

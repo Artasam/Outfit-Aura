@@ -1,0 +1,126 @@
+# ============================================================
+# SECURITY — Never commit secrets or credentials
+# ============================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets.json
+
+# ============================================================
+# Python — Virtual Environments
+# ============================================================
+venv/
+vevn/
+OA/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================================
+# Python — Bytecode & Cache
+# ============================================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.pyc
+
+# ============================================================
+# Python — Build & Distribution
+# ============================================================
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+MANIFEST
+
+# ============================================================
+# Python — Testing & Coverage
+# ============================================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+nosetests.xml
+coverage.xml
+*.log
+
+# ============================================================
+# Python — Type Checking & Linting
+# ============================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# ============================================================
+# ML / AI — Model Files & Checkpoints
+# ============================================================
+checkpoints/
+parsing_model/
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+*.pkl
+*.pickle
+*.safetensors
+*.onnx
+*.tflite
+*.pb
+*.model
+
+# ============================================================
+# Runtime — Uploads, Outputs & Static Generated Files
+# ============================================================
+uploads/
+static/
+outputs/
+results/
+tmp/
+temp/
+
+# ============================================================
+# External / Vendor Folders
+# ============================================================
+../Self-Correction-Human-Parsing-master/
+
+# ============================================================
+# Bootstrap / Setup Scripts (large, auto-downloaded)
+# ============================================================
+get-pip.py
+
+# ============================================================
+# OS & Editor Artifacts
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================================
+# Docker (local overrides only)
+# ============================================================
+docker-compose.override.yml
+
+# ============================================================
+# Jupyter Notebooks (checkpoints)
+# ============================================================
+.ipynb_checkpoints/

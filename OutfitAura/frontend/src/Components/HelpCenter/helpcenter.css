@@ -1,0 +1,491 @@
+.help-center {
+    margin: 0 auto;
+    padding: 50px 25px;
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 1200px;
+}
+
+/* Heading */
+.help-center h2 {
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    font-size: 45px;
+    font-weight: 700;
+    color: var(--brand-brown);
+    margin-bottom: 50px;
+}
+
+/* Grid Layout */
+.help-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Sections (Troubleshooting & Disclaimer) */
+.section {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.section:hover {
+    transform: translateY(-3px);
+}
+
+.section h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--brand-brown);
+    border-left: 4px solid var(--brand-brown);
+    padding-left: 15px;
+}
+
+/* Troubleshooting List */
+.troubleshooting ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.troubleshooting li {
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: var(--muted);
+}
+
+/* Disclaimer */
+.disclaimer p {
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* FAQ Section */
+.faq-section {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.faq-section h3 {
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    font-size: 26px;
+    color: var(--brand-brown);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.faq-section details {
+    background: #f8f9fa;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-section details:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-section summary {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.faq-section summary::after {
+    content: "▼";
+    font-size: 14px;
+    color: var(--brand-brown);
+    transition: transform 0.3s ease;
+}
+
+.faq-section details[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.faq-section p {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+/* Feedback Section */
+.feedback {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.feedback h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--brand-brown);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.feedback p {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.feedback textarea {
+    width: 95%;
+    height: 150px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    background: var(--surface);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.feedback textarea:focus {
+    border-color: var(--brand-brown);
+    box-shadow: 0 0 0 2px rgba(91, 62, 62, 0.1);
+}
+
+.feedback button {
+    font-family: "Roboto", sans-serif !important;
+    width: 100%;
+    padding: 12px;
+    background: var(--brand-brown);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.feedback button:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+}
+
+.feedback button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .help-center {
+        padding: 40px 15px;
+        max-width: 100%;
+    }
+
+    .help-center h2 {
+        font-size: clamp(28px, 5.5vw, 36px);
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .help-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        padding: 20px 18px;
+    }
+
+    .section h3 {
+        font-size: clamp(18px, 4vw, 22px);
+        padding-left: 12px;
+        margin-bottom: 15px;
+    }
+
+    .troubleshooting li {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .disclaimer p {
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .faq-section {
+        padding: 20px 18px;
+        margin-bottom: 30px;
+    }
+
+    .faq-section h3 {
+        font-size: clamp(20px, 4.5vw, 26px);
+        margin-bottom: 20px;
+    }
+
+    .faq-section details {
+        padding: 16px;
+        margin: 12px 0;
+    }
+
+    .faq-section summary {
+        font-size: 16px;
+    }
+
+    .faq-section p {
+        font-size: 14px;
+        margin-top: 12px;
+    }
+
+    .feedback {
+        padding: 20px 18px;
+        max-width: 100%;
+    }
+
+    .feedback h3 {
+        font-size: clamp(20px, 4.5vw, 26px);
+        margin-bottom: 16px;
+    }
+
+    .feedback p {
+        font-size: 14px;
+    }
+
+    .feedback textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        min-height: 120px;
+    }
+
+    .feedback button {
+        padding: 14px;
+        font-size: 15px;
+        min-height: 48px;
+    }
+
+    .emergency {
+        margin-top: 25px;
+        padding: 18px 15px;
+    }
+
+    .emergency h3 {
+        font-size: clamp(22px, 5vw, 26px);
+    }
+
+    .emergency p {
+        font-size: clamp(15px, 3.5vw, 18px);
+        margin-top: -12px;
+    }
+
+    .emergency-btn {
+        padding: 12px 18px;
+        font-size: 15px;
+        min-height: 44px;
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .help-center {
+        padding: 30px 12px;
+    }
+
+    .help-center h2 {
+        font-size: clamp(24px, 6vw, 32px);
+        margin-bottom: 25px;
+        padding: 0 5px;
+    }
+
+    .help-grid {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .section {
+        padding: 18px 15px;
+    }
+
+    .section h3 {
+        font-size: clamp(17px, 4.5vw, 20px);
+        padding-left: 10px;
+        margin-bottom: 12px;
+    }
+
+    .troubleshooting ul {
+        padding-left: 18px;
+    }
+
+    .troubleshooting li {
+        font-size: 13px;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .disclaimer p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .faq-section {
+        padding: 18px 15px;
+        margin-bottom: 25px;
+    }
+
+    .faq-section h3 {
+        font-size: clamp(18px, 5vw, 24px);
+        margin-bottom: 18px;
+    }
+
+    .faq-section details {
+        padding: 14px;
+        margin: 10px 0;
+    }
+
+    .faq-section summary {
+        font-size: 15px;
+    }
+
+    .faq-section p {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .feedback {
+        padding: 18px 15px;
+    }
+
+    .feedback h3 {
+        font-size: clamp(18px, 5vw, 24px);
+        margin-bottom: 14px;
+    }
+
+    .feedback p {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    .feedback textarea {
+        height: 110px;
+        min-height: 110px;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .feedback button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .emergency {
+        margin-top: 20px;
+        padding: 16px 12px;
+    }
+
+    .emergency h3 {
+        font-size: 20px;
+    }
+
+    .emergency p {
+        font-size: 15px;
+        margin-top: -10px;
+    }
+
+    .emergency-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .help-center {
+        padding: 25px 10px;
+    }
+
+    .help-center h2 {
+        font-size: 22px;
+    }
+
+    .section {
+        padding: 15px 12px;
+    }
+
+    .section h3 {
+        font-size: 16px;
+    }
+
+    .faq-section {
+        padding: 15px 12px;
+    }
+
+    .feedback {
+        padding: 15px 12px;
+    }
+
+    .feedback textarea {
+        height: 100px;
+    }
+}
+
+.emergency {
+    margin-top: 30px;
+    padding: 20px;
+    background: #ff4444;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.emergency h3{
+font-size: 30px;
+}
+
+.emergency p{
+    font-size: 20px;
+    margin-top: -16px;
+}
+
+.emergency-btn {
+    background: white;
+    color: #ff4444;
+    padding: 10px 15px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.emergency-btn:hover {
+    background: #ffcccc;
+}

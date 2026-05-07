@@ -1,0 +1,117 @@
+.about-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 30px;   
+    transition: 0.3s ease-in-out;
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 12px;
+  }
+  
+  .about-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .about-container h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--brand-brown) !important;
+    margin-bottom: 40px;
+    text-align: center;  
+  }
+  
+  .about-container p {
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+  
+  .about-container p:last-child {
+    font-weight: 600;
+    color: var(--brand-brown);
+    text-align: center;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .about-container {
+      max-width: 100%;
+      margin: 60px 20px;
+      padding: 30px 25px;
+      border-radius: 12px;
+    }
+
+    .about-container h2 {
+      font-size: clamp(28px, 5.5vw, 36px);
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    .about-container p {
+      font-size: clamp(15px, 3.5vw, 18px);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      text-align: left;
+      padding: 0 5px;
+    }
+
+    .about-container p:last-child {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-container {
+      margin: 56px 15px;
+      padding: 25px 20px;
+      border-radius: 10px;
+    }
+
+    .about-container h2 {
+      font-size: clamp(24px, 6vw, 32px);
+      margin-bottom: 25px;
+      padding: 0 5px;
+    }
+
+    .about-container p {
+      font-size: clamp(14px, 3.5vw, 16px);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      text-align: left;
+      padding: 0;
+    }
+
+    .about-container p:last-child {
+      margin-top: 18px;
+      font-size: clamp(15px, 3.5vw, 17px);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .about-container {
+      margin: 54px 12px;
+      padding: 20px 16px;
+    }
+
+    .about-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .about-container p {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .about-container p:last-child {
+      font-size: 15px;
+      margin-top: 16px;
+    }
+  }
+  
