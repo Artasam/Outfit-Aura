@@ -1,27 +1,23 @@
-// Firebase SDKs import 
+// Firebase SDKs import
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore"; // ✅ Import Firestore
-import { GoogleAuthProvider } from "firebase/auth"; // ✅ Add this impor
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-
-// Firebase Config with direct credentials
+// Firebase config — values loaded from .env (never hardcoded)
 const firebaseConfig = {
-  apiKey: "AIzaSyARUFsFU2stcAHshQ2zs-_fTbiuIGtKcTc",
-  authDomain: "outfitaura-e8201.firebaseapp.com",
-  projectId: "outfitaura-e8201",
-  storageBucket: "outfitaura-e8201.firebasestorage.app",
-  messagingSenderId: "207698326112",
-  appId: "1:207698326112:web:90a9ed52698b816ef18905",
-  measurementId: "G-4ZW4BY5L3B"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Firebase initialize 
+// Firebase initialize
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app); // ✅ Initialize Firestore
-const provider = new GoogleAuthProvider(); // ✅ this line
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-export { auth, db, provider }; // ✅ Now you're exporting the Google provider too
-
-
+export { auth, db, provider };
