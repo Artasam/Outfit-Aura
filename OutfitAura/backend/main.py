@@ -17,7 +17,12 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
 from parsing_service import parsing_service
-from tryon_service import tryon_service
+
+try:
+    from tryon_service import tryon_service
+except Exception as _tryon_err:
+    print(f"Warning: CatVTON tryon service not available locally: {_tryon_err}")
+    tryon_service = None
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", None)
@@ -169,9 +174,16 @@ UPLOAD_DIR = BASE_DIR / "uploads"
 STATIC_DIR.mkdir(parents=True, exist_ok=True)
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
+# CORS — read extra origins from env so Vercel URL can be added without code changes
+_extra_origins = os.getenv("ALLOWED_ORIGINS", "")
+_allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+] + [o.strip() for o in _extra_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
@@ -339,6 +351,8 @@ async def generate_tryon(
                     )
         else:
             print("COLAB_TRYON_URL not set, using local CPU inference")
+            if tryon_service is None:
+                raise HTTPException(status_code=503, detail="Try-on service not initialized")
             tryon_path = tryon_service.generate_tryon(temp_person, temp_garment, parsing_path)
             
             relative_path = tryon_path.relative_to(STATIC_DIR)
