@@ -16,27 +16,41 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
-from parsing_service import parsing_service
+# Initialize services with safety checks
+try:
+    from parsing_service import ParsingService
+    parsing_service = ParsingService()
+    print("✅ Parsing service initialized successfully")
+except Exception as e:
+    print(f"❌ CRITICAL ERROR: Could not initialize ParsingService: {e}")
+    parsing_service = None
 
 try:
     from tryon_service import tryon_service
+    print("✅ Try-on service initialized successfully")
 except Exception as _tryon_err:
-    print(f"Warning: CatVTON tryon service not available locally: {_tryon_err}")
+    print(f"⚠️ Warning: CatVTON tryon service not available locally: {_tryon_err}")
     tryon_service = None
 
 load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", None)
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 COLAB_TRYON_URL = os.getenv("COLAB_TRYON_URL", None)
 
-if not GROQ_API_KEY:
-    raise RuntimeError("GROQ_API_KEY not found")
+groq_client = None
+groq_available = False
+groq_error_message = None
 
-try:
-    groq_client = Groq(api_key=GROQ_API_KEY)
-    print("Groq client initialized successfully")
-except Exception as e:
-    print(f"Failed to initialize Groq client: {e}")
-    raise
+if GROQ_API_KEY:
+    try:
+        groq_client = Groq(api_key=GROQ_API_KEY)
+        groq_available = True
+        print("Groq client initialized successfully")
+    except Exception as e:
+        groq_error_message = str(e)
+        print(f"Failed to initialize Groq client: {groq_error_message}")
+else:
+    groq_error_message = "GROQ_API_KEY not found"
+    print("⚠️ GROQ_API_KEY not found. Chat functionality will be unavailable until the key is configured.")
 
 class SimpleConversationMemory:
     def __init__(self, max_messages=10):
@@ -104,6 +118,11 @@ Provide your best fashion advice now.
 )
 
 def groq_processor(prompt_text: str) -> str:
+    if not groq_available or groq_client is None:
+        error_message = groq_error_message or "GROQ_API_KEY is not configured"
+        print(f"Groq unavailable: {error_message}")
+        raise RuntimeError("Chat service unavailable: " + error_message)
+
     try:
         print(f"Processing prompt: {prompt_text[:100]}...")
         response = groq_client.chat.completions.create(
@@ -124,7 +143,7 @@ def groq_processor(prompt_text: str) -> str:
         
     except Exception as e:
         print(f"Groq API Error: {str(e)}")
-        return "Sorry, I am having technical issues. Please ask about fashion advice."
+        raise
 
 def format_response(response: str) -> str:
     response = response.strip()
@@ -213,6 +232,13 @@ async def chat_handler(request: ChatRequest):
         if not user_input:
             raise HTTPException(status_code=400, detail="Empty message received")
 
+        if not groq_available:
+            raise HTTPException(
+                status_code=503,
+                detail=("Fashion chat service is unavailable because GROQ_API_KEY is not configured. "
+                        "Please set GROQ_API_KEY in the environment before retrying.")
+            )
+
         if user_input.lower() in ['hi', 'hello', 'hey', 'how are you?', 'how are you']:
             return {
                 "response": "Hello. I am OutfitAura's Fashion AI. I can help you with outfit ideas, style tips or fashion guidance. What can I help you with today?"
@@ -243,7 +269,8 @@ async def chat_handler(request: ChatRequest):
 async def detailed_health():
     return {
         "api_status": "healthy",
-        "groq_connection": "active",
+        "groq_connection": "active" if groq_available else "inactive",
+        "groq_error": groq_error_message if not groq_available else None,
         "memory_status": "operational",
         "supported_queries": [
             "Outfit recommendations",
@@ -268,6 +295,9 @@ async def parse_human(
 
     temp_filename = f"{uuid.uuid4().hex}_{person_image.filename}"
     temp_path = UPLOAD_DIR / temp_filename
+
+    if not parsing_service:
+        raise HTTPException(status_code=503, detail="Parsing service not available. Check model weights.")
 
     try:
         with temp_path.open("wb") as buffer:
@@ -311,6 +341,8 @@ async def generate_tryon(
             shutil.copyfileobj(garment_image.file, buffer)
 
         print("Generating parsing mask...")
+        if not parsing_service:
+            raise HTTPException(status_code=503, detail="Parsing service not available")
         parsing_path = parsing_service.generate_parsing(temp_person)
         print("Parsing complete")
 

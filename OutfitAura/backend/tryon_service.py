@@ -60,7 +60,7 @@ class CatVTONService:
         )
 
         # Load fine-tuned attention weights
-        checkpoint = torch.load(weights_path, map_location="cpu")
+        checkpoint = torch.load(weights_path, map_location="cpu", weights_only=False)
         trainable_state = checkpoint.get("trainable_state_dict", checkpoint)
         current_state = self.unet.state_dict()
         loaded = 0
