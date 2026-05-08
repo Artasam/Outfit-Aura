@@ -74,7 +74,8 @@ const Home = () => {
     formData.append("garment_image", garmentFile);
 
     try {
-      const response = await fetch("http://localhost:8001/api/generate-tryon", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8001";
+      const response = await fetch(`${apiUrl}/api/generate-tryon`, {
         method: "POST",
         body: formData,
       });
