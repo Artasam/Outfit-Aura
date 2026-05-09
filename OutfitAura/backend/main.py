@@ -16,25 +16,45 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
-# Initialize services with safety checks
-try:
-    from parsing_service import ParsingService
-    parsing_service = ParsingService()
-    print("✅ Parsing service initialized successfully")
-except Exception as e:
-    print(f"❌ CRITICAL ERROR: Could not initialize ParsingService: {e}")
-    parsing_service = None
-
-try:
-    from tryon_service import tryon_service
-    print("✅ Try-on service initialized successfully")
-except Exception as _tryon_err:
-    print(f"⚠️ Warning: CatVTON tryon service not available locally: {_tryon_err}")
-    tryon_service = None
-
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 COLAB_TRYON_URL = os.getenv("COLAB_TRYON_URL", None)
+MODAL_APP_NAME = os.getenv("MODAL_APP_NAME", "outfitaura-backend")
+
+# Initialize Modal client
+modal_generate = None
+try:
+    import modal
+    try:
+        remote_cls = modal.Cls.from_name(MODAL_APP_NAME, "OutfitAuraModel")
+        modal_generate = remote_cls().generate
+        print(f"✅ Modal GPU service found: {MODAL_APP_NAME}")
+    except Exception as e:
+        print(f"❌ Modal lookup failed for '{MODAL_APP_NAME}': {e}")
+except ImportError:
+    print("ℹ️ 'modal' package not installed. Skipping Modal integration.")
+
+# Initialize local services ONLY if Modal is not available (Fallback mode)
+parsing_service = None
+tryon_service_instance = None
+
+if not modal_generate:
+    print("⚠️ Modal not found. Initializing local services (CPU fallback)...")
+    try:
+        from parsing_service import ParsingService
+        parsing_service = ParsingService()
+        print("✅ Local Parsing service initialized")
+    except Exception as e:
+        print(f"ℹ️ Local Parsing service skipped: {e}")
+
+    try:
+        from tryon_service import tryon_service
+        tryon_service_instance = tryon_service
+        print("✅ Local Try-on service initialized")
+    except Exception as e:
+        print(f"ℹ️ Local Try-on service skipped: {e}")
+else:
+    print("🚀 Using Modal for GPU tasks. Skipping local model loading to save resources.")
 
 groq_client = None
 groq_available = False
@@ -340,9 +360,37 @@ async def generate_tryon(
         with temp_garment.open("wb") as buffer:
             shutil.copyfileobj(garment_image.file, buffer)
 
-        print("Generating parsing mask...")
+        if modal_generate:
+            print(f"Sending to Modal GPU: {MODAL_APP_NAME}")
+            try:
+                # Reset file pointers to the beginning before reading for Modal
+                await person_image.seek(0)
+                await garment_image.seek(0)
+                
+                # Read files as bytes
+                p_bytes = await person_image.read()
+                g_bytes = await garment_image.read()
+                
+                # Reset file pointers again just in case they are used elsewhere
+                await person_image.seek(0)
+                await garment_image.seek(0)
+
+                # Call Modal remote function (Modal handles Parsing + Try-on internally)
+                result_bytes = await modal_generate.remote.aio(p_bytes, g_bytes)
+                
+                import base64
+                encoded_image = base64.b64encode(result_bytes).decode("utf-8")
+                return {"tryon_image_base64": encoded_image}
+                
+            except Exception as e:
+                print(f"Modal inference failed: {e}")
+                raise HTTPException(status_code=500, detail=f"Modal inference failed: {str(e)}")
+
+        # --- LOCAL FALLBACK LOGIC ---
+        print("Generating parsing mask locally...")
         if not parsing_service:
             raise HTTPException(status_code=503, detail="Parsing service not available")
+        
         parsing_path = parsing_service.generate_parsing(temp_person)
         print("Parsing complete")
 
@@ -382,10 +430,10 @@ async def generate_tryon(
                         detail="Failed to connect to Colab service"
                     )
         else:
-            print("COLAB_TRYON_URL not set, using local CPU inference")
-            if tryon_service is None:
+            print("No remote GPU service configured, using local CPU inference")
+            if tryon_service_instance is None:
                 raise HTTPException(status_code=503, detail="Try-on service not initialized")
-            tryon_path = tryon_service.generate_tryon(temp_person, temp_garment, parsing_path)
+            tryon_path = tryon_service_instance.generate_tryon(temp_person, temp_garment, parsing_path)
             
             relative_path = tryon_path.relative_to(STATIC_DIR)
             base_url = str(request.base_url).rstrip("/")
