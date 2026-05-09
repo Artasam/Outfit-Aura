@@ -1,7 +1,7 @@
 # 👗 OutfitAura: AI-Powered Virtual Try-On & Fashion Assistant
 
 <p align="center">
-  <img src="frontend/public/logo.png" alt="OutfitAura Logo" width="150" />
+  <img src="OutfitAura/frontend/public/logo.png" alt="OutfitAura Logo" width="150" />
 </p>
 
 **OutfitAura** is a premium, full-stack virtual try-on application that leverages state-of-the-art AI to help users visualize clothing on themselves. Built with a modern glassmorphic UI and a high-performance serverless GPU backbone, it provides a seamless and "magical" shopping experience.
