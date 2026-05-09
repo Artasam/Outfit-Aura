@@ -34,7 +34,10 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         {/* Logo on Left */}
-        <div className="logo">OutfitAura</div>
+        <div className="logo">
+          <img src="/logo.png" alt="OutfitAura Logo" className="navbar-logo" />
+          <span>OutfitAura</span>
+        </div>
 
         {/* All Navigation Items on Right */}
         <ul className={`nav-links ${isOpen ? "open" : ""}`}>

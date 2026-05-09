@@ -35,19 +35,33 @@
 
 /* Logo */
 .logo {
-  font-size: 2.6rem !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 2.2rem !important;
   font-weight: 900;
   letter-spacing: 2.2px;
   color: var(--brand-brown);
-  transition: text-shadow 0.3s ease;
-  text-shadow: 0 2px 0 rgba(0,0,0,0.12), 0 0 0.5px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
+.navbar-logo {
+  height: 45px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .navbar-logo {
+  transform: rotate(5deg) scale(1.1);
+}
+
 .logo:hover {
-  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Navigation Links */
